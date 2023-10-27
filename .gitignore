@@ -1,0 +1,8 @@
+# IDE related files
+.idea/.gitignore
+.idea/comp333-MVC.iml
+.idea/modules.xml
+.idea/php.xml
+.idea/vcs.xml
+
+.DS_Store
