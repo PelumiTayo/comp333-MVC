@@ -2,65 +2,131 @@
 
 class Route
 {
+    /**
+     * @var string
+     */
     private $uri;
-    private $dir;
-    public function __construct($uri, $dir)
+    /**
+     * @var string
+     */
+    private $target;
+    public function __construct($uri, $destination)
     {
         $this->uri = $uri;
-        $this->dir = $dir;
+        $this->target = $destination;
     }
 
+    /**
+     * @return string
+     */
     function getUri() {
         return $this->uri;
     }
 
-    function getDir() {
-        return $this->dir;
+    /**
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
     }
+    /**
+     * Routes inbound url request to the mapped uri -> target file
+     * target destination should be written with a leading backslash('/').
+     *
+     * @param string $uri The uri to map to a target destination
+     * @param string $target directory to a file or a callback function
+     * @return Route|null
+     */
+    public static function add($uri, $target) {
+        $callback = $target;
+        $route = new Route($uri, $target);
 
-    public static function get($uri, $dir) {
-        $route = new Route($uri, $dir);
-        $route->route();
+        # Checks the given destination string is not a callback function
+        if (!is_callable($callback)) {
+            # If given destination path is not a callback function but also does not specify '.php'
+            # Append '.php' to the destination path
+            if (!strpos($target, '.php')) {
+                $target .= '.php';
+            }
+        }
+        # Handles 404 requests
+        if ($uri == '/404') {
+            include_once __DIR__."/$target";
+            exit();
+        }
+
+        ####################################################################
+        #
+        # filter and parse request url
+        #
+        ####################################################################
+        $request_url = filter_var($_SERVER["REQUEST_URI"], FILTER_SANITIZE_URL);
+
+        # Remove any trailing backslashes
+        $request_url = rtrim($request_url, '/');
+
+        # tokenize request url by query string operator
+        $request_url = strtok($request_url, '?');
+
+        # deconstruct provided target uri
+        $route_parts = explode('/', $uri);
+
+        # deconstruct actual url request
+        $request_url_parts = explode('/', $request_url);
+
+        # Remove the leading backslash from the target uri
+        array_shift($route_parts);
+
+        # Remove the domain part of the url request
+        array_shift($request_url_parts);
+
+        if ($route_parts[0] == '' && count($request_url_parts) == 0) { # target uri is empty and request url points to top directory
+            if (is_callable ($callback)) { # If callback, execute then return
+                call_user_func_array($callback, []);
+                return null;
+            }
+            include_once __DIR__ . "/$target";  # not a callback, so route uri to target
+            return $route;
+        }
+
+        # target uri and request uri length do not match
+        if (count($route_parts) != count($request_url_parts)) {
+            return null;
+        }
+        #################################################################################################
+        #
+        # if an array of callback parameters is given for a callback function, parse the request url for arguments
+        #
+        #################################################################################################
+        $parameters = [];
+        for ($__i__ = 0; $__i__ < count($route_parts); $__i__++) {
+            $route_part = $route_parts[$__i__];
+            if (preg_match("/^[$]/", $route_part)) {
+                $route_part = ltrim($route_part, '$');
+                $parameters[] = $request_url_parts[$__i__];
+                $$route_part = $request_url_parts[$__i__];
+            } else if ($route_parts[$__i__] != $request_url_parts[$__i__]) { # parts of the request url does not match to corresponding target uri
+                return null;
+            }
+        }
+
+        if (is_callable($callback)) { # callback provided instead so call
+            call_user_func_array($callback, $parameters);
+            return null;
+        }
+        include_once __DIR__."/$target";
         return $route;
-    }
-
-    public static function post($uri, $dir) {
-        $route = new Route($uri, $dir);
-        $route->route();
-        return $route;
-    }
-
-    public static function put($uri, $dir) {
-        $route = new Route($uri, $dir);
-        $route->route();
-        return $route;
-    }
-
-    public static function patch($uri, $dir) {
-        $route = new Route($uri, $dir);
-        $route->route();
-        return $route;
-    }
-
-    public static function delete($uri, $dir) {
-        $route = new Route($uri, $dir);
-        $route->route();
-        return $route;
-    }
-
-    private function route() {
-
     }
 
     /**
      * Adds a middleware file to the route
+     * middleware files should be placed in '/middleware'
      *
-     * @param array|string|null $middleware
+     * @param array|string|null $middleware file name for middleware - should be written without '.php' extension
      * @return void
      */
     public function middleware($middleware = null) {
         $this->route();
     }
 }
-
-
