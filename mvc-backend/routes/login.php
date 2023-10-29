@@ -7,8 +7,8 @@ switch($_SERVER['REQUEST_METHOD'])
 {
     case 'GET':
         # handle get request
-        ProfileController.show();
+        $controller->show();
     case 'POST':
         # handle post request
-        ProfileController.store();
+        $controller->store();
 }

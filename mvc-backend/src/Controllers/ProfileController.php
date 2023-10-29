@@ -10,6 +10,7 @@ class ProfileController extends BaseController
     function store() {
         $user = new UserModel;
         $user->getTable();
+
         # Some SQL statement to push new model to database
     }
 }
