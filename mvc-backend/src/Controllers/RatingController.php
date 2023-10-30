@@ -6,7 +6,21 @@ use src\View;
 
 class RatingController extends BaseController
 {
-    # This is where the logic for route requests should be handled.
+    function show() {
+
+    }
+
+    function store() {
+
+    }
+
+    function update() {
+
+    }
+
+    function delete() {
+
+    }
 }
 
 ?>

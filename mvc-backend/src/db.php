@@ -9,6 +9,6 @@ $DB_SOCKET = null;
 
 $db = new mysqli($DB_HOSTNAME,$DB_USERNAME,$DB_PASSWORD,$DB_DATABASE,$DB_PORT);
 
-printf("Connected successfully as $DB_USERNAME@$DB_HOSTNAME:$DB_PORT\n");
-printf("Server version: %s\n", $db->get_server_info());
+//printf("Connected successfully as $DB_USERNAME@$DB_HOSTNAME:$DB_PORT\n");
+//printf("Server version: %s\n", $db->get_server_info());
 

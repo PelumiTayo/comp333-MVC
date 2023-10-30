@@ -1,8 +1,8 @@
 <?php
 
-use src\Controllers\ProfileController;
+use src\Controllers\UserController;
 
-$controller = new ProfileController();
+$controller = new UserController();
 switch($_SERVER['REQUEST_METHOD'])
 {
     case 'GET':

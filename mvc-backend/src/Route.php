@@ -19,14 +19,15 @@ class Route
     /**
      * @return string
      */
-    function getUri() {
+    function getUri(): string
+    {
         return $this->uri;
     }
 
     /**
      * @return string
      */
-    public function getTarget()
+    public function getTarget(): string
     {
         return $this->target;
     }
@@ -38,7 +39,8 @@ class Route
      * @param string $target directory to a file or a callback function
      * @return Route|null
      */
-    public static function add($uri, $target) {
+    public static function add(string $uri, string $target): ?Route
+    {
         $callback = $target;
         $route = new Route($uri, $target);
 
@@ -52,7 +54,7 @@ class Route
         }
         # Handles 404 requests
         if ($uri == '/404') {
-            include_once __DIR__."/$target";
+            include_once $_SERVER["DOCUMENT_ROOT"]."/routes/"."$target";
             exit();
         }
 
@@ -86,7 +88,7 @@ class Route
                 call_user_func_array($callback, []);
                 return null;
             }
-            include_once __DIR__ . "/$target";  # not a callback, so route uri to target
+            include_once $_SERVER["DOCUMENT_ROOT"]."/routes/"."$target";  # not a callback, so route uri to target
             return $route;
         }
 
@@ -94,11 +96,11 @@ class Route
         if (count($route_parts) != count($request_url_parts)) {
             return null;
         }
-        #################################################################################################
+        ################################################################################################################
         #
         # if an array of callback parameters is given for a callback function, parse the request url for arguments
         #
-        #################################################################################################
+        ################################################################################################################
         $parameters = [];
         for ($__i__ = 0; $__i__ < count($route_parts); $__i__++) {
             $route_part = $route_parts[$__i__];
@@ -115,7 +117,7 @@ class Route
             call_user_func_array($callback, $parameters);
             return null;
         }
-        include_once __DIR__."/$target";
+        include_once $_SERVER["DOCUMENT_ROOT"]."/routes/"."$target";
         return $route;
     }
 

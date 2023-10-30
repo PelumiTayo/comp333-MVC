@@ -1,6 +1,7 @@
 <?php
 
 namespace src\Models;
+include_once "Model.php";
 
 class UserModel extends Model
 {
@@ -13,7 +14,4 @@ class UserModel extends Model
             'field' => 'password',
             'type' => 'varchar(255)')
     );
-
 }
-
-?>

@@ -1,7 +1,5 @@
 <?php
 
+Route::add('/login', '.login.php');
 
-
-Route::add('/login', './routes/login.php');
-
-Route::add('/register', './routes/register.php');
+Route::add('/register', 'register.php');

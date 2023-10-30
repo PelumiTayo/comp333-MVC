@@ -1,16 +1,17 @@
 <?php
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/src/Controllers/UserController.php';
+use src\Controllers\UserController;
+
+$userController = new UserController();
 switch($_SERVER['REQUEST_METHOD'])
 {
-        # handle get request
-    case 'GET':
-        # handle post request
-    case 'POST':
-        # validate user input
-        # Create new UserModel using post fields
-        # call newUser->create() to push to db
-        # a new $user should look like
-        # $user = ['username' => 'new_username', 'password' => 'new_password']
-        $user = new \src\Models\UserModel();
-        $user->create(['username' => $_POST['username'], 'password' => $_POST['password']]);
+    case 'GET': # handle get request
+
+    case 'POST': # handle post request
+        $request = array(
+            'username' => $_POST['username'],
+            'password' => $_POST['password']
+        );
+        $userController->store($request);
 }

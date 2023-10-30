@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-class BaseController
+abstract class BaseController
 {
     # Gathers
 }
