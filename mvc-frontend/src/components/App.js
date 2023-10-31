@@ -11,6 +11,7 @@ import Landing from "./Landing.jsx";
 import SignUp from "./SignUp.jsx";
 import SignIn from "./SignIn.jsx";
 import Navbar from "./Navbar.jsx";
+import Rater from "./Rater.jsx";
 
 //allows for routing from page to page
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -27,6 +28,10 @@ export default function App() {
           <Route
             path="/signUp"
             element={<SignUp setIsLogged={setIsLogged} />}
+          />
+          <Route
+            path="/Rate"
+            element={<Rater/>}
           />
           <Route
             path="/signIn"

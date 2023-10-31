@@ -130,7 +130,7 @@ export default function Navbar({ isLogged, setIsLogged }) {
             {pages.map((page) => (
               <Button
                 key={page}
-                href={`#${page}`}
+                href={page === "Rate" ? `${page}` : `#${page}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
