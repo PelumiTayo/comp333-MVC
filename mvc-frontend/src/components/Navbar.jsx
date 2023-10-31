@@ -12,13 +12,28 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
+import profile from "../assets/profile.png";
+//routes to a differnt page
+import { useNavigate } from "react-router-dom";
 
-export default function Navbar() {
-  const pages = ["About", "Rate"];
+export default function Navbar({ isLogged, setIsLogged }) {
+  const [pages, setPages] = React.useState([])
   const settings = ["Rated Songs", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isLogged, setIsLogged] = React.useState(false);
+  const navigateTo = useNavigate();
+  //keeps the authentication state of the user
+  React.useEffect(() => {
+    const data = localStorage.getItem("loggedIn");
+    setIsLogged(JSON.parse(data));
+    if (isLogged === true){
+      setPages(["About", "Rate"])
+    }
+    else{
+      setPages(["About"])
+    }
+  }, [isLogged, setIsLogged]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,9 +46,16 @@ export default function Navbar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  function handleCloseUserMenu(setting) {
+    if (setting === "Logout") {
+      localStorage.setItem("loggedIn", false);
+      localStorage.setItem("username", "");
+      setIsLogged(false);
+    } else if (setting === "Rated Songs") {
+      navigateTo("/Rate");
+    }
     setAnchorElUser(null);
-  };
+  }
 
   return (
     <AppBar position="fixed" sx={{ backgroundColor: "white" }}>
@@ -88,7 +110,12 @@ export default function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  component={"a"}
+                  href={page === "Rate" ? `${page}` : `/#${page}`}
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -117,7 +144,7 @@ export default function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                href={`#${page}`}
+                href={page === "Rate" ? `${page}` : `/#${page}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
@@ -129,7 +156,7 @@ export default function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={profile} size="sm" />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -149,7 +176,10 @@ export default function Navbar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleCloseUserMenu(setting)}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
@@ -157,23 +187,27 @@ export default function Navbar() {
             </Box>
           ) : (
             <>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  backgroundColor: "#BBA5FF",
-                  color: "black",
-                  display: "block",
-                }}
-              >
-                Sign In
-              </Button>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
-              >
-                Sign Up
-              </Button>
+              <Link to={"/signIn"} style={{ textDecoration: "none" }}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    backgroundColor: "#BBA5FF",
+                    color: "black",
+                    display: "block",
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link to={"/signUp"} style={{ textDecoration: "none" }}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "black", display: "block" }}
+                >
+                  Sign Up
+                </Button>
+              </Link>
             </>
           )}
         </Toolbar>
