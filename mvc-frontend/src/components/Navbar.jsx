@@ -14,19 +14,26 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import profile from "../assets/profile.png";
+//routes to a differnt page
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ isLogged, setIsLogged }) {
-  const pages = ["About", "Rate"];
+  const [pages, setPages] = React.useState([])
   const settings = ["Rated Songs", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const navigateTo = useNavigate();
   //keeps the authentication state of the user
   React.useEffect(() => {
     const data = localStorage.getItem("loggedIn");
-
     setIsLogged(JSON.parse(data));
-  }, [isLogged]);
+    if (isLogged === true){
+      setPages(["About", "Rate"])
+    }
+    else{
+      setPages(["About"])
+    }
+  }, [isLogged, setIsLogged]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,10 +47,12 @@ export default function Navbar({ isLogged, setIsLogged }) {
   };
 
   function handleCloseUserMenu(setting) {
-    if (setting == "Logout") {
+    if (setting === "Logout") {
       localStorage.setItem("loggedIn", false);
       localStorage.setItem("username", "");
       setIsLogged(false);
+    } else if (setting === "Rated Songs") {
+      navigateTo("/Rate");
     }
     setAnchorElUser(null);
   }
@@ -101,7 +110,12 @@ export default function Navbar({ isLogged, setIsLogged }) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  component={"a"}
+                  href={page === "Rate" ? `${page}` : `/#${page}`}
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -130,7 +144,7 @@ export default function Navbar({ isLogged, setIsLogged }) {
             {pages.map((page) => (
               <Button
                 key={page}
-                href={page === "Rate" ? `${page}` : `#${page}`}
+                href={page === "Rate" ? `${page}` : `/#${page}`}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
