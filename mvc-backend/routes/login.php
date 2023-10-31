@@ -7,8 +7,13 @@ switch($_SERVER['REQUEST_METHOD'])
 {
     case 'GET':
         # handle get request
-        $controller->show();
+//        $controller->show();
     case 'POST':
         # handle post request
-        $controller->store();
+        $request = array(
+            'username' => $_POST('username'),
+            'password' => $_POST('password')
+
+        );
+        $controller->create($request);
 }
