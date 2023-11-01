@@ -13,8 +13,11 @@ export default function RatingsView({
   totalRatings,
   setRating,
   setUpdateValues,
+  setDltID,
   username,
   setUpdate,
+  setDlt,
+  setDeleteRating
 }) {
   return (
     <Box align={"center"} sx={{ flexGrow: 1 }} m={3}>
@@ -59,7 +62,13 @@ export default function RatingsView({
                     >
                       Update
                     </Button>
-                    <Button size="small">Delete</Button>
+                    <Button onClick={(e) => {
+                        e.preventDefault()
+                        setRating(false);
+                        setDlt(true)
+                        setDeleteRating(true)
+                        setDltID(subArray[0])
+                    }} size="small">Delete</Button>
                   </CardActions>
                 ) : (
                   <CardActions>

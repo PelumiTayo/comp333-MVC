@@ -12,7 +12,7 @@ class ApiClient {
     console.debug("API Call:", endpoint, data, method);
     const params = method === "GET" ? data : {};
     const headers =
-      method === "PATCH"
+      method === "PATCH" || method === "DELETE"
         ? { "Content-Type": "application/json" }
         : {
             "Content-Type": "multipart/form-data",
@@ -66,6 +66,14 @@ class ApiClient {
     return await this.request({
       endpoint: `ratings`,
       method: `PATCH`,
+      data: creds,
+    });
+  }
+
+  async ratingD(creds) {
+    return await this.request({
+      endpoint: `ratings`,
+      method: `DELETE`,
       data: creds,
     });
   }
