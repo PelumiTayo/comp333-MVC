@@ -1,7 +1,7 @@
 <?php
 
 namespace src\Models;
-include_once "Model.php";
+require "Model.php";
 
 class UserModel extends Model
 {
