@@ -1,4 +1,3 @@
-
 <h1 align="center">
   <br>
   <img src="https://github.com/PelumiTayo/comp333-MVC/assets/98628508/6ebfa739-825b-467a-8d7b-62f3f50aa883" alt="SoundScore" width="200"></a>
@@ -27,6 +26,8 @@
 
 
 ## Key Features
+
+* This project explores RESTful APIs and Model-View-Controller (MVC) backend structures.
 
 * User authentication
   - Log in to view, update, delete, or add to your song ratings!
@@ -58,25 +59,16 @@ $ npm start
 
 ```
 
-## Database Information
-* user_table
-<table>
-    <tr>
-        <td>username (primary key)</td>
-        <td>password </td>
-    </tr>
-</table>
+## [🔗 Backend Documentation](mvc-backend/README.md)
 
-* ratings_table
-<table>
-    <tr>
-        <td>id (primary key)</td>
-        <td>username (foreign key) </td>
-              <td>title </td>
-        <td>artist </td>
-        <td>rating </td>
-    </tr>
-</table>
+Core functionality:
+- `Model`: A database wrapper class that handles sql queries
+    - `UserModel`, `RatingModel`, `CommentModel` inherits the Model Class
+- `Controller`: Handles user requests and passes them to the `Model` Class for database operations.
+    - `UserController`, `RatingController`, `CommentController` inherits the `BaseController` class.
+- `Route`: handles requests to 'user-friendly' urls to .php files located in `/routes`
+
+For detailed documentation, refer to [Backend Documentation](#🔗-backend-documentation)
 
 ## Deployed URL
 
@@ -99,3 +91,4 @@ MIT
 
 > GitHub [@PelumiTayo](https://github.com/PelumiTayo) &nbsp;&middot;&nbsp;
 > GitHub [@JohnWhangbo](https://github.com/jwwhangbo) &nbsp;&middot;&nbsp;
+
