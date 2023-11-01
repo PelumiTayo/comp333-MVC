@@ -1,7 +1,7 @@
 <?php
 
 namespace src\Models;
-require_once "Model.php";
+require "Model.php";
 class RatingModel extends Model
 {
     protected $table_name = 'ratings_table';

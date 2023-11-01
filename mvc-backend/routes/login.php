@@ -1,5 +1,5 @@
 <?php
-
+include_once $_SERVER['DOCUMENT_ROOT'].'/src/Controllers/UserController.php';
 use src\Controllers\UserController;
 
 $controller = new UserController();

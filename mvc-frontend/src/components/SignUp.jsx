@@ -15,8 +15,12 @@ import apiClient from "../services/apiClient";
 import BandPractice from "../assets/The Band Concert.png";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({setIsLogged}) {
-    // sets up the user object
+export default function SignUp({
+  setIsLogged,
+  setTotalRatings,
+  totalRatings
+}) {
+  // sets up the user object
   const [userInfo, setUserInfo] = React.useState({
     username: "",
     password: "",
@@ -26,11 +30,11 @@ export default function SignUp({setIsLogged}) {
     confirmPasswordError: "",
   });
 
-  const navigateTo = useNavigate()
+  const navigateTo = useNavigate();
   const [registerError, setRegisterError] = React.useState("");
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
     if (
       userInfo.username &&
       userInfo.password.length >= 8 &&
@@ -52,23 +56,29 @@ export default function SignUp({setIsLogged}) {
         formData.append("password", userInfo.password);
 
         const { data, error, status } = await apiClient.register(formData);
-    
+
         //successfully inputted into the DB
         if (data === 1) {
           setRegisterError("");
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
-          setIsLogged(true)
-          navigateTo("/Rate")
-        //unsuccessful
+          setIsLogged(true);
+          setTotalRatings([]);
+          localStorage.setItem("totalRatings", totalRatings);
+          navigateTo("/Rate");
+          //unsuccessful
         } else {
-            setRegisterError("Something went wrong with registration, please try again!");
+          setRegisterError(
+            "Something went wrong with registration, please try again!"
+          );
         }
         console.log(`data: ${data}, error: ${error}, status: ${status}`);
       } catch (err) {
         console.log(err);
-        setRegisterError("Something went wrong with registration, please try again!");
-    }
+        setRegisterError(
+          "Something went wrong with registration, please try again!"
+        );
+      }
 
       setUserInfo((prevState) => ({
         ...prevState,
@@ -76,8 +86,8 @@ export default function SignUp({setIsLogged}) {
         password: "",
         confirmPassword: "",
       }));
-    
-      //error handling 
+
+      //error handling
     } else {
       if (userInfo.username.length === 0) {
         setUserInfo((prevState) => ({
@@ -192,7 +202,7 @@ export default function SignUp({setIsLogged}) {
             fullWidth
             required
           />
-          <Typography sx={{color: 'red'}} >{registerError}</Typography>
+          <Typography sx={{ color: "red" }}>{registerError}</Typography>
           <Button
             type="submit"
             color="primary"

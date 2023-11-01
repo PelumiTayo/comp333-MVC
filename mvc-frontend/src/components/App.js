@@ -18,24 +18,42 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
+  const [totalRatings, setTotalRatings] = React.useState([]);
 
   return (
     <>
       <BrowserRouter>
-        <Navbar isLogged={isLogged} setIsLogged={setIsLogged} />
+        <Navbar isLogged={isLogged} setIsLogged={setIsLogged} setTotalRatings={setTotalRatings}/>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route
             path="/signUp"
-            element={<SignUp setIsLogged={setIsLogged} />}
+            element={
+              <SignUp
+                setIsLogged={setIsLogged}
+                totalRatings={totalRatings}
+                setTotalRatings={setTotalRatings}
+              />
+            }
           />
           <Route
             path="/Rate"
-            element={<Rater/>}
+            element={
+              <Rater
+                setTotalRatings={setTotalRatings}
+                totalRatings={totalRatings}
+              />
+            }
           />
           <Route
             path="/signIn"
-            element={<SignIn setIsLogged={setIsLogged} />}
+            element={
+              <SignIn
+                setIsLogged={setIsLogged}
+                totalRatings={totalRatings}
+                setTotalRatings={setTotalRatings}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>

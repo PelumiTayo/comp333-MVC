@@ -22,7 +22,7 @@ import profile from "../assets/profile.png";
 //routes to a differnt page
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar({ isLogged, setIsLogged }) {
+export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
   const [pages, setPages] = React.useState([])
   const settings = ["Rated Songs", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -55,7 +55,9 @@ export default function Navbar({ isLogged, setIsLogged }) {
     if (setting === "Logout") {
       localStorage.setItem("loggedIn", false);
       localStorage.setItem("username", "");
+      localStorage.setItem("totalRatings", []);
       setIsLogged(false);
+      navigateTo("/")
     } else if (setting === "Rated Songs") {
       navigateTo("/Rate");
     }

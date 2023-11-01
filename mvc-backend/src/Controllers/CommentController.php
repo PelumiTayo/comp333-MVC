@@ -1,31 +1,23 @@
 <?php
 
 namespace src\Controllers;
-require 'BaseController.php';
-require $_SERVER['DOCUMENT_ROOT'].'/src/Models/RatingModel.php';
+require "BaseController.php";
+require $_SERVER['DOCUMENT_ROOT'].'/src/Models/CommentModel.php';
+use src\Controllers\BaseController;
+use src\Models\CommentModel;
 
-use src\Models\RatingModel;
-
-class RatingController extends BaseController
+class CommentController extends BaseController
 {
     public function __construct()
     {
-        $this->model = new RatingModel();
+        $this->model = new CommentModel();
     }
 
     /**
      * @return null
      */
-    function show(array|null $key=null): null  {
-        if ($key != null) {
-            $result = $this->model->retrieve();
-        }
-        else {
-            $result = $this->model->retrieve($key);
-        }
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result);
-        return null;
+    function show(array $key): null  {
+
     }
 
     /**
@@ -33,24 +25,9 @@ class RatingController extends BaseController
      * @return bool
      */
     function store(array $request): bool {
-
-        try {
-            $rows = $this->model->retrieve(array('username' => $request['username'], 'title' => $request['title']));
-            if (count($rows) > 0) {
-                echo "duplicate";
-                return false;
-            }
-        } catch (\Exception $e) {
-            http_response_code(500);
-            echo $e;
-            return false;
-        }
-
         try {
             if ($this->model->create($request)) {
-                $rows = $this->model->retrieve($request);
-                $new_rating = $rows[0];
-                echo json_encode(array_slice($new_rating, 0, 1));
+                echo true;
                 return true;
             }
             else {
@@ -65,7 +42,7 @@ class RatingController extends BaseController
     }
 
     /**
-     * @param array $request
+ * @param array $request
      * @return bool
      */
     function update(array $request): bool{
@@ -106,4 +83,3 @@ class RatingController extends BaseController
         }
     }
 }
-
