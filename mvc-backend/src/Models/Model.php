@@ -48,10 +48,13 @@ class Model
         require $_SERVER['DOCUMENT_ROOT'].'/src/db.php';
         # check if $fillable is in $rows
         $rows = $this->getColumns();
+        $db_fields = array();
+        foreach ($rows as $row){
+            $db_fields[] = $row[0];
+        }
         $input_fields = array_keys($entries);
-        foreach ($rows as $row) {
-            $db_field = $row[0];
-            if (!in_array($db_field, $input_fields)) {
+        foreach ($input_fields as $input_field) {
+            if (!in_array($input_field, $db_fields)) {
                 return false;
             }
         }
@@ -60,7 +63,12 @@ class Model
         $array_values = array();
         foreach ($entries as $field) {
             $array_fields[] = array_search($field, $entries);
-            $array_values[] = "'".$field."'";
+            if (gettype($field) == "string") {
+                $array_values[] = "'" . $field . "'";
+            }
+            else {
+                $array_values[] = $field;
+            }
         }
         $fields = implode(',',$array_fields);
         $values = implode(',',$array_values);
@@ -76,23 +84,29 @@ class Model
             return false;
         }
     }
+
     /**
      * Queries the database for the provided entries and returns the query result as an array
      *
-     * @param array $entries
+     * @param array|null $entries
      * @return array
      */
-    public function retrieve(array $entries) : array {
+    public function retrieve(array|null $entries=null) : array {
         require $_SERVER['DOCUMENT_ROOT'].'/src/db.php';
 
         $search_values = array();
 
-        foreach ($entries as $entry) {
-            $search_values[] = array_search($entry, $entries).'='."'".$entry."'";
+        if ($entries == null) {
+            $query_string = "SELECT * FROM $this->table_name";
         }
-        $keywords = implode(' AND ', $search_values);
+        else {
+            foreach ($entries as $entry) {
+                $search_values[] = array_search($entry, $entries) . '=' . "'" . $entry . "'";
+            }
+            $keywords = implode(' AND ', $search_values);
 
-        $query_string = "SELECT * FROM $this->table_name WHERE $keywords";
+            $query_string = "SELECT * FROM $this->table_name WHERE $keywords";
+        }
         /** @var mysqli $db */
         if ($results = $db->execute_query($query_string)) {
             $rows = $results->fetch_all();
@@ -118,13 +132,23 @@ class Model
         $search_values = array();
         # Extract query values from array $update to strings
         foreach ($update as $key) {
-            $update_values[] = array_search($key, $update)."="."'".$key."'";
+            $field = array_search($key, $update);
+            $update_value = $field."=".$key;
+            if (gettype($key) == "string") {
+                $update_value = $field."="."'".$key."'";
+            }
+            $update_values[] = $update_value;
         }
         $update_keys = implode(',', $update_values);
 
         # Extract query values from array $identity to strings
         foreach ($identity as $key) {
-            $search_values[] = array_search($key, $identity)."="."'".$key."'";
+            $field = array_search($key, $update);
+            $search_value = $field."=".$key;
+            if (gettype($key) == "string") {
+                $search_value = $field."="."'".$key."'";
+            }
+            $search_values[] = $search_value;
         }
         $search_keys = implode(' AND ', $search_values);
 
