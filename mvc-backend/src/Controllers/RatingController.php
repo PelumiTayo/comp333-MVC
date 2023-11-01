@@ -8,18 +8,29 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/src/Models/RatingModel.php';
 
 class RatingController extends BaseController
 {
-    function show() {
-        $ratingModel = new RatingModel();
-        $result = $ratingModel->retrieve();
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result);
+    public function __construct()
+    {
+        $this->model = new RatingModel();
     }
 
-    function store(array $request) {
-        $ratingModel = new RatingModel();
+    /**
+     * @return null
+     */
+    function show(): null  {
+        $result = $this->model->retrieve();
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($result);
+        return;
+    }
+
+    /**
+     * @param array $request
+     * @return bool
+     */
+    function store(array $request): bool {
 
         try {
-            $rows = $ratingModel->retrieve(array('username' => $request['username'], 'title' => $request['title']));
+            $rows = $this->model->retrieve(array('username' => $request['username'], 'title' => $request['title']));
             if (count($rows) > 0) {
                 echo "duplicate";
                 return false;
@@ -31,7 +42,7 @@ class RatingController extends BaseController
         }
 
         try {
-            if ($ratingModel->create($request)) {
+            if ($this->model->create($request)) {
                 echo true;
                 return true;
             }
@@ -46,10 +57,13 @@ class RatingController extends BaseController
         }
     }
 
-    function update($request) {
-        $ratingModel = new RatingModel();
+    /**
+     * @param array $request
+     * @return bool
+     */
+    function update(array $request): bool{
         try {
-            if ($ratingModel->update($request,array('id'=>$request['id']) )){
+            if ($this->model->update($request,array('id'=>$request['id']) )){
                 echo true;
                 return true;
             }
@@ -64,10 +78,13 @@ class RatingController extends BaseController
         }
     }
 
-    function delete($request) {
-        $ratingModel = new RatingModel();
+    /**
+     * @param array $request
+     * @return bool
+     */
+    function delete(array $request): bool {
         try {
-            if ($ratingModel->delete($request)){
+            if ($this->model->delete($request)){
                 echo true;
                 return true;
             }

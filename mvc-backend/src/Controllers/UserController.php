@@ -7,6 +7,11 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/src/Models/UserModel.php';
 use src\Models\UserModel;
 class UserController extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = new UserModel();
+    }
+
     /**
      * Creates new user session from login credentials
      *
@@ -14,11 +19,10 @@ class UserController extends BaseController
      * @return bool
      */
     function create($request): bool {
-        $userModel = new UserModel();
         $username_request = array('username'=>$request['username']);
         $password_request = $request['password'];
         try {
-            $rows = $userModel->retrieve($username_request);
+            $rows = $this->model->retrieve($username_request);
             $user_result = $rows[0];
             if (count($rows) > 0) {
                 $user_password = $user_result[1];
@@ -49,17 +53,16 @@ class UserController extends BaseController
     function store($request): bool
     {
         # Hash password
-        $userModel = new UserModel();
         $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
         try {
-            $rows = $userModel->retrieve(array('username' => $request['username']));
+            $rows = $this->model->retrieve(array('username' => $request['username']));
             if (count($rows) > 0) {
                 echo "username is taken";
                 return false;
             }
             else
             {
-                $userModel->create($request);
+                $this->model->create($request);
                 echo true;
                 return true;
             }
