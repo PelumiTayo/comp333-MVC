@@ -28,4 +28,9 @@ switch($_SERVER['REQUEST_METHOD'])
             'rating' => $_PATCH['rating']
         );
         $ratingController->update($request);
+    case 'DELETE':
+        $_DELETE = file_get_contents('php://input');
+        $_DELETE = json_decode($_DELETE, true);
+        $request = array('id'=>$_DELETE['id']);
+        $ratingController->delete($request);
 }
