@@ -25,7 +25,7 @@ class RatingController extends BaseController
         }
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($result);
-        return;
+        return null;
     }
 
     /**
