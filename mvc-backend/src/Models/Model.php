@@ -2,7 +2,7 @@
 
 namespace src\Models;
 
-use mysqli;
+// use mysqli;
 
 class Model
 {
