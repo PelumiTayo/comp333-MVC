@@ -15,7 +15,7 @@ import logo from "../assets/logo.png";
 import BandPractice from "../assets/The Band Concert.png";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({ setIsLogged, setTotalRatings }) {
+export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
   const [userInfo, setUserInfo] = React.useState({
     username: "",
     password: "",
@@ -50,9 +50,11 @@ export default function SignUp({ setIsLogged, setTotalRatings }) {
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
           const { data } = await apiClient.ratingG(formData);
-          if (data){
-            setTotalRatings(data)
+          if (data) {
+            setTotalRatings(data);
           }
+          //saves the ratings to localStorage to help uphold state
+          localStorage.setItem("totalRatings", JSON.stringify(totalRatings));
           navigateTo("/Rate");
         } else {
           setLoginError("Incorrect Username/Password.");

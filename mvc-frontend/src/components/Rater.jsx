@@ -12,8 +12,10 @@ export default function Rater({ setTotalRatings, totalRatings }) {
 
   React.useEffect(() => {
     const data = localStorage.getItem("username");
+    const ratings = localStorage.getItem("totalRatings");
+    setTotalRatings(JSON.parse(ratings))
     setUsername(data);
-  }, []);
+  }, [totalRatings]);
   return (
     <h1>
       <>

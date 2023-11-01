@@ -18,7 +18,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
-  const [totalRatings, setTotalRatings] = React.useState(null);
+  const [totalRatings, setTotalRatings] = React.useState([]);
 
   console.log(totalRatings);
 
@@ -33,6 +33,7 @@ export default function App() {
             element={
               <SignUp
                 setIsLogged={setIsLogged}
+                totalRatings={totalRatings}
                 setTotalRatings={setTotalRatings}
               />
             }
@@ -51,6 +52,7 @@ export default function App() {
             element={
               <SignIn
                 setIsLogged={setIsLogged}
+                totalRatings={totalRatings}
                 setTotalRatings={setTotalRatings}
               />
             }
