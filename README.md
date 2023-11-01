@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/PelumiTayo/comp333-MVC/assets/98628508/6ebfa739-825b-467a-8d7b-62f3f50aa883" alt="SoundScore" width="200"></a>
+  <img src="https://github.com/PelumiTayo/comp333-MVC/assets/98628508/6ebfa739-825b-467a-8d7b-62f3f50aa883" alt="SonicScore" width="200"></a>
   <h1 align="center">SonicScore</h1>
   <br>
   <br>
@@ -72,7 +72,7 @@ For detailed documentation, refer to [Backend Documentation](#🔗-backend-docum
 
 ## Deployed URL
 
-  Coming very very soon!
+  [SonicScore](https://soundscore-e4f0b.web.app/)
 
 ## Credits
 
