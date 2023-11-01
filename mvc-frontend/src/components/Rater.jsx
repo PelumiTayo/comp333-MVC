@@ -6,11 +6,15 @@ import AddRating from "./AddRating.jsx";
 import apiClient from "../services/apiClient.jsx";
 import RatingsView from "./RatingsView.jsx";
 import UpdateRating from "./UpdateRating.jsx";
+import DeleteRating from "./DeleteRating.jsx";
 
 export default function Rater({ setTotalRatings, totalRatings }) {
   const [username, setUsername] = React.useState("");
   const [addRating, setAddRating] = React.useState(false);
   const [update, setUpdate] = React.useState(false);
+  const [dlt, setDlt] = React.useState(false);
+  const [dltID, setDltID] = React.useState(0)
+  const [deleteRating, setDeleteRating] = React.useState(false);
   const [updateValues, setUpdateValues] = React.useState({
     id: 0,
     artist: "",
@@ -62,6 +66,9 @@ export default function Rater({ setTotalRatings, totalRatings }) {
               setUpdate={setUpdate}
               setUpdateValues={setUpdateValues}
               setRating={setRating}
+              setDeleteRating={setDeleteRating}
+              setDlt={setDlt}
+              setDltID={setDltID}
             />
           </Box>
         ) : (
@@ -81,6 +88,16 @@ export default function Rater({ setTotalRatings, totalRatings }) {
                 username={username}
                 setRating={setRating}
                 setUpdate={setUpdate}
+              />
+            )}
+            {dlt && (
+              <DeleteRating
+                username={username}
+                setRating={setRating}
+                setDlt={setDlt}
+                setDeleteRating={setDeleteRating}
+                deleteRating={deleteRating}
+                dltID={dltID}
               />
             )}
           </>
