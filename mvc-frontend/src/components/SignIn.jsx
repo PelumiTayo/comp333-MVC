@@ -50,11 +50,12 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
           const { data } = await apiClient.ratingG(formData);
+          console.log(data)
           if (data) {
             setTotalRatings(data);
           }
           //saves the ratings to localStorage to help uphold state
-          localStorage.setItem("totalRatings", JSON.stringify(totalRatings));
+          localStorage.setItem("totalRatings", JSON.stringify(data));
           navigateTo("/Rate");
         } else {
           setLoginError("Incorrect Username/Password.");

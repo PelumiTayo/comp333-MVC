@@ -35,12 +35,10 @@ export default function RatingsView({ totalRatings, username }) {
                     <Button size="small">View</Button>
                     <Button size="small">Update</Button>
                     <Button size="small">Delete</Button>
-                    <Button size="small">Comment</Button>
                   </CardActions>
                 ) : (
                   <CardActions>
                     <Button size="small">View</Button>
-                    <Button size="small">Comment</Button>
                   </CardActions>
                 )}
               </Box>

@@ -20,12 +20,10 @@ export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
   const [totalRatings, setTotalRatings] = React.useState([]);
 
-  console.log(totalRatings);
-
   return (
     <>
       <BrowserRouter>
-        <Navbar isLogged={isLogged} setIsLogged={setIsLogged} />
+        <Navbar isLogged={isLogged} setIsLogged={setIsLogged} setTotalRatings={setTotalRatings}/>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route
