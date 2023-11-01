@@ -1,10 +1,10 @@
 <?php
 
 namespace src\Controllers;
-use src\Models\RatingModel;
+require 'BaseController.php';
+require $_SERVER['DOCUMENT_ROOT'].'/src/Models/RatingModel.php';
 
-require_once 'BaseController.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/src/Models/RatingModel.php';
+use src\Models\RatingModel;
 
 class RatingController extends BaseController
 {
@@ -16,8 +16,13 @@ class RatingController extends BaseController
     /**
      * @return null
      */
-    function show(): null  {
-        $result = $this->model->retrieve();
+    function show(array $key=null): null  {
+        if (count($key) > 0) {
+            $result = $this->model->retrieve();
+        }
+        else {
+            $result = $this->model->retrieve($key);
+        }
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($result);
         return;
@@ -43,7 +48,9 @@ class RatingController extends BaseController
 
         try {
             if ($this->model->create($request)) {
-                echo true;
+                $rows = $this->model->retrieve($request);
+                $new_rating = $rows[0];
+                echo json_encode(array_slice($new_rating, 0, 1));
                 return true;
             }
             else {
