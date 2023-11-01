@@ -64,8 +64,22 @@ class RatingController extends BaseController
         }
     }
 
-    function delete() {
-
+    function delete($request) {
+        $ratingModel = new RatingModel();
+        try {
+            if ($ratingModel->delete($request)){
+                echo true;
+                return true;
+            }
+            else{
+                echo false;
+                return false;
+            }
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo $e;
+            return false;
+        }
     }
 }
 

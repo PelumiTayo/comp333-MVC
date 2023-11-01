@@ -152,7 +152,7 @@ class Model
         }
         $search_keys = implode(' AND ', $search_values);
 
-        $query_string = "UPDATE $this->table_name $update_keys WHERE $search_keys";
+        $query_string = "UPDATE $this->table_name SET $update_keys WHERE $search_keys";
 
         /** @var mysqli $db */
         $result = $db->execute_query($query_string);
