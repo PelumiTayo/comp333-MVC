@@ -1,8 +1,8 @@
 <?php
 
 namespace src\Controllers;
-include_once 'BaseController.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/src/Models/UserModel.php';
+require 'BaseController.php';
+require $_SERVER['DOCUMENT_ROOT'].'/src/Models/UserModel.php';
 
 use src\Models\UserModel;
 class UserController extends BaseController
