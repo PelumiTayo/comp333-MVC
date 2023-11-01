@@ -15,7 +15,7 @@ import apiClient from "../services/apiClient";
 import BandPractice from "../assets/The Band Concert.png";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({setIsLogged}) {
+export default function SignUp({setIsLogged, setTotalRatings}) {
     // sets up the user object
   const [userInfo, setUserInfo] = React.useState({
     username: "",
@@ -59,6 +59,7 @@ export default function SignUp({setIsLogged}) {
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
           setIsLogged(true)
+          setTotalRatings([])
           navigateTo("/Rate")
         //unsuccessful
         } else {
