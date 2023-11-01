@@ -16,8 +16,8 @@ class RatingController extends BaseController
     /**
      * @return null
      */
-    function show(array $key=null): null  {
-        if (count($key) > 0) {
+    function show(array|null $key=null): null  {
+        if ($key != null) {
             $result = $this->model->retrieve();
         }
         else {
