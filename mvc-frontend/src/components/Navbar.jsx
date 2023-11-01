@@ -2,17 +2,16 @@ import * as React from "react";
 import {
   AppBar,
   Box,
-  Toolbar, 
+  Toolbar,
   IconButton,
   Typography,
   Menu,
-  Container, 
+  Container,
   Avatar,
   Button,
   Tooltip,
   MenuItem,
 } from "@mui/material";
-
 
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -23,7 +22,7 @@ import profile from "../assets/profile.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
-  const [pages, setPages] = React.useState([])
+  const [pages, setPages] = React.useState([]);
   const settings = ["Rated Songs", "Logout"];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -32,11 +31,10 @@ export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
   React.useEffect(() => {
     const data = localStorage.getItem("loggedIn");
     setIsLogged(JSON.parse(data));
-    if (isLogged === true){
-      setPages(["About", "Rate"])
-    }
-    else{
-      setPages(["About"])
+    if (isLogged === true) {
+      setPages(["About", "Rate"]);
+    } else {
+      setPages(["About"]);
     }
   }, [isLogged, setIsLogged]);
 
@@ -57,7 +55,7 @@ export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
       localStorage.setItem("username", "");
       localStorage.setItem("totalRatings", []);
       setIsLogged(false);
-      navigateTo("/")
+      navigateTo("/");
     } else if (setting === "Rated Songs") {
       navigateTo("/Rate");
     }

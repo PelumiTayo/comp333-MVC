@@ -2,33 +2,33 @@ import React from "react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import apiClient from "../services/apiClient";
 
-export default function AddRating({
+export default function UpdateRating({
+  updateValues,
   username,
   setRating,
-  setAddRating,
+  setUpdate,
 }) {
-  const [ratingInfo, setRatingInfo] = React.useState({
-    artist: "",
-    title: "",
-    rating: 1,
+  const [updateInfo, setupdateInfo] = React.useState({
+    artist: updateValues.artist,
+    title: updateValues.title,
+    rating: updateValues.rating,
     artistError: "",
     titleError: "",
     ratingError: "",
   });
   const [inputError, setInputError] = React.useState("");
-
   async function handleSubmit(e) {
     e.preventDefault();
 
     if (
-      ratingInfo.artist &&
-      ratingInfo.title &&
-      ratingInfo.rating >= 1 &&
-      ratingInfo.rating <= 5
+      updateInfo.artist &&
+      updateInfo.title &&
+      updateInfo.rating >= 1 &&
+      updateInfo.rating <= 5
     ) {
       try {
         //resets error if it passes the above conditionals
-        setRatingInfo((prevState) => ({
+        setupdateInfo((prevState) => ({
           ...prevState,
           artistError: "",
           titleError: "",
@@ -36,24 +36,21 @@ export default function AddRating({
         }));
 
         //converts information into formData so it can be sent to the backend.
-        const formData = new FormData();
 
-        formData.append("username", username);
-        formData.append("artist", ratingInfo.artist);
-        formData.append("rating", ratingInfo.rating);
-        formData.append("title", ratingInfo.title);
-
-        const { data, error, status } = await apiClient.ratingP(formData);
+        const { data, error, status } = await apiClient.ratingPatch({
+          id: updateValues.id,
+          username: username,
+          title: updateInfo.title,
+          artist: updateInfo.artist,
+          rating: updateInfo.rating,
+        });
         console.log(data);
         //successfully inputted into the DB
         if (data) {
           setInputError("");
           setRating(true);
-          setAddRating(false);
+          setUpdate(false);
           window.location.reload();
-
-          //   const newArray = [...totalRatings, [data, username, ratingInfo.title, ratingInfo.artist, ratingInfo.rating ]];
-          //   setTotalRatings(newArray)
         } else {
           setInputError("Invalid Input.");
         }
@@ -63,44 +60,44 @@ export default function AddRating({
         setInputError("Invalid Input.");
       }
 
-      setRatingInfo((prevState) => ({
-        ...prevState,
-        artist: "",
-        title: "",
-        rating: "",
-      }));
+      //   setupdateInfo((prevState) => ({
+      //     ...prevState,
+      //     artist: "",
+      //     title: "",
+      //     rating: "",
+      //   }));
 
       //error handling
     } else {
-      if (ratingInfo.artist.length === 0) {
-        setRatingInfo((prevState) => ({
+      if (updateInfo.artist.length === 0) {
+        setupdateInfo((prevState) => ({
           ...prevState,
           artistError: "Please enter a valid artist.",
         }));
       } else {
-        setRatingInfo((prevState) => ({
+        setupdateInfo((prevState) => ({
           ...prevState,
           artistError: "",
         }));
       }
-      if (ratingInfo.rating < 1 || ratingInfo.rating > 5) {
-        setRatingInfo((prevState) => ({
+      if (updateInfo.rating < 1 || updateInfo.rating > 5) {
+        setupdateInfo((prevState) => ({
           ...prevState,
           ratingError: "Please enter a valid rating.",
         }));
       } else {
-        setRatingInfo((prevState) => ({
+        setupdateInfo((prevState) => ({
           ...prevState,
           ratingError: "",
         }));
       }
-      if (ratingInfo.title.length === 0) {
-        setRatingInfo((prevState) => ({
+      if (updateInfo.title.length === 0) {
+        setupdateInfo((prevState) => ({
           ...prevState,
           titleError: "Please enter a valid song title.",
         }));
       } else {
-        setRatingInfo((prevState) => ({
+        setupdateInfo((prevState) => ({
           ...prevState,
           titleError: "",
         }));
@@ -114,13 +111,13 @@ export default function AddRating({
           elevation={10}
           style={{
             padding: 20,
-            height: "70vh",
+            height: "75vh",
             width: 280,
             margin: "20px auto",
           }}
         >
           <Grid align="center">
-            <h2>Add a rating!</h2>
+            <h2>Update a rating!</h2>
           </Grid>
           <TextField
             disabled
@@ -130,15 +127,15 @@ export default function AddRating({
             fullWidth
           />
           <TextField
-            {...(ratingInfo.artistError ? { error: true } : {})}
-            helperText={ratingInfo.artistError}
+            {...(updateInfo.artistError ? { error: true } : {})}
+            helperText={updateInfo.artistError}
             sx={{ margin: "5px" }}
             label="Artist"
             placeholder="Enter Artist"
             type="text"
-            value={ratingInfo.artist}
+            value={updateInfo.artist}
             onChange={(e) =>
-              setRatingInfo((prevState) => ({
+              setupdateInfo((prevState) => ({
                 ...prevState,
                 artist: e.target.value,
               }))
@@ -147,15 +144,15 @@ export default function AddRating({
             required
           />
           <TextField
-            {...(ratingInfo.titleError ? { error: true } : {})}
-            helperText={ratingInfo.titleError}
+            {...(updateInfo.titleError ? { error: true } : {})}
+            helperText={updateInfo.titleError}
             sx={{ margin: "5px" }}
             label="Song"
             placeholder="Enter Song"
             type="text"
-            value={ratingInfo.title}
+            value={updateInfo.title}
             onChange={(e) =>
-              setRatingInfo((prevState) => ({
+              setupdateInfo((prevState) => ({
                 ...prevState,
                 title: e.target.value,
               }))
@@ -164,16 +161,16 @@ export default function AddRating({
             required
           />
           <TextField
-            {...(ratingInfo.ratingError ? { error: true } : {})}
-            helperText={ratingInfo.ratingError}
+            {...(updateInfo.ratingError ? { error: true } : {})}
+            helperText={updateInfo.ratingError}
             sx={{ margin: "5px" }}
             label="Rating"
             placeholder="Enter Rating"
             type="number"
             InputProps={{ inputProps: { min: 1, max: 5 } }}
-            value={ratingInfo.rating}
+            value={updateInfo.rating}
             onChange={(e) =>
-              setRatingInfo((prevState) => ({
+              setupdateInfo((prevState) => ({
                 ...prevState,
                 rating: e.target.value,
               }))
@@ -188,16 +185,16 @@ export default function AddRating({
             color="primary"
             onClick={handleSubmit}
             variant="contained"
-            style={{ margin: "8px 0", backgroundColor: "#7B61FF" }}
+            style={{ backgroundColor: "#7B61FF" }}
             fullWidth
           >
-            Rate
+            Update
           </Button>
           <Button
             color="primary"
             onClick={() => {
-                setRating(true)
-                setAddRating(false)
+              setRating(true);
+              setUpdate(false);
             }}
             variant="contained"
             style={{ backgroundColor: "#7B61FF" }}
