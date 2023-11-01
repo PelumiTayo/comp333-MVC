@@ -13,8 +13,8 @@ switch($_SERVER['REQUEST_METHOD'])
     case 'POST': # handle post request
         $request = array(
         'username' => $_POST['username'],
-        'title' => $_POST['title'],
-        'artist' => $_POST['artist'],
+        'title' => htmlspecialchars($_POST['title']),
+        'artist' => htmlspecialchars($_POST['artist']),
         'rating' => $_POST['rating']
         );
         $ratingController->store($request);
@@ -24,9 +24,9 @@ switch($_SERVER['REQUEST_METHOD'])
         $_PATCH = json_decode($_PATCH, true);
         $request = array(
             'id' => $_PATCH['id'],
-            'username' => $_PATCH['username'],
-            'title' => $_PATCH['title'],
-            'artist' => $_PATCH['artist'],
+            'username' => htmlspecialchars($_PATCH['username']),
+            'title' => htmlspecialchars($_PATCH['title']),
+            'artist' => htmlspecialchars($_PATCH['artist']),
             'rating' => $_PATCH['rating']
         );
         $ratingController->update($request);
