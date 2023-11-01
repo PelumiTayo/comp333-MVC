@@ -111,7 +111,7 @@ export default function UpdateRating({
           elevation={10}
           style={{
             padding: 20,
-            height: "70vh",
+            height: "75vh",
             width: 280,
             margin: "20px auto",
           }}
@@ -185,10 +185,22 @@ export default function UpdateRating({
             color="primary"
             onClick={handleSubmit}
             variant="contained"
-            style={{ margin: "8px 0", backgroundColor: "#7B61FF" }}
+            style={{ backgroundColor: "#7B61FF" }}
             fullWidth
           >
             Update
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              setRating(true);
+              setUpdate(false);
+            }}
+            variant="contained"
+            style={{ backgroundColor: "#7B61FF" }}
+            fullWidth
+          >
+            Cancel
           </Button>
         </Paper>
       </Grid>

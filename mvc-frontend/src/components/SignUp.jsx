@@ -15,11 +15,7 @@ import apiClient from "../services/apiClient";
 import BandPractice from "../assets/The Band Concert.png";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp({
-  setIsLogged,
-  setTotalRatings,
-  totalRatings
-}) {
+export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
   // sets up the user object
   const [userInfo, setUserInfo] = React.useState({
     username: "",

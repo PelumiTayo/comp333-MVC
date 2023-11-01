@@ -50,7 +50,7 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
           const { data } = await apiClient.ratingG();
-          console.log(data)
+          console.log(data);
           if (data) {
             setTotalRatings(data);
           }

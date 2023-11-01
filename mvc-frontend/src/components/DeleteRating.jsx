@@ -8,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import apiClient from "../services/apiClient"
+import apiClient from "../services/apiClient";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -24,9 +24,8 @@ export default function DeleteRating({
   setDlt,
   setDeleteRating,
   deleteRating,
-  dltID
+  dltID,
 }) {
-
   const handleClose = () => {
     setDeleteRating(false);
     setRating(true);
