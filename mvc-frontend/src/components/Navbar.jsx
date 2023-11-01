@@ -27,6 +27,7 @@ export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigateTo = useNavigate();
+
   //keeps the authentication state of the user
   React.useEffect(() => {
     const data = localStorage.getItem("loggedIn");
@@ -53,7 +54,6 @@ export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
     if (setting === "Logout") {
       localStorage.setItem("loggedIn", false);
       localStorage.setItem("username", "");
-      localStorage.setItem("totalRatings", []);
       setIsLogged(false);
       navigateTo("/");
     } else if (setting === "Rated Songs") {
@@ -115,14 +115,14 @@ export default function Navbar({ isLogged, setIsLogged, setTotalRatings }) {
               }}
             >
               {pages.map((page) => (
+                <Link to={page === "Rate" ? `${page}` : `/#${page}`}>
                 <MenuItem
-                  component={"a"}
-                  href={page === "Rate" ? `${page}` : `/#${page}`}
                   key={page}
                   onClick={handleCloseNavMenu}
                 >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

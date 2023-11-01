@@ -8,12 +8,11 @@ import {
   Button,
   Typography,
   Box,
-  Link,
 } from "@mui/material";
 import apiClient from "../services/apiClient";
 import logo from "../assets/logo.png";
 import BandPractice from "../assets/The Band Concert.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
   const [userInfo, setUserInfo] = React.useState({
@@ -46,16 +45,14 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
 
         if (data === 1) {
           setLoginError("");
+          //sets username and loggedIn value in localStorage to uphold state. 
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
           const { data } = await apiClient.ratingG();
-          console.log(data);
           if (data) {
             setTotalRatings(data);
           }
-          //saves the ratings to localStorage to help uphold state
-          localStorage.setItem("totalRatings", JSON.stringify(data));
           navigateTo("/Rate");
         } else {
           setLoginError("Incorrect Username/Password.");
@@ -180,7 +177,7 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
             Don't have an account?{" "}
             <Link
               style={{ textDecoration: "none", color: "#FFAC4B" }}
-              href="\signUp"
+              to="..\signUp"
             >
               Sign Up
             </Link>

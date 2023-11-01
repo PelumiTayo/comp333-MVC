@@ -2,11 +2,7 @@ import React from "react";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import apiClient from "../services/apiClient";
 
-export default function AddRating({
-  username,
-  setRating,
-  setAddRating,
-}) {
+export default function AddRating({ username, setRating, setAddRating }) {
   const [ratingInfo, setRatingInfo] = React.useState({
     artist: "",
     title: "",
@@ -43,21 +39,16 @@ export default function AddRating({
         formData.append("rating", ratingInfo.rating);
         formData.append("title", ratingInfo.title);
 
-        const { data, error, status } = await apiClient.ratingP(formData);
-        console.log(data);
+        const { data } = await apiClient.ratingP(formData);
         //successfully inputted into the DB
         if (data) {
           setInputError("");
           setRating(true);
           setAddRating(false);
           window.location.reload();
-
-          //   const newArray = [...totalRatings, [data, username, ratingInfo.title, ratingInfo.artist, ratingInfo.rating ]];
-          //   setTotalRatings(newArray)
         } else {
           setInputError("Invalid Input.");
         }
-        console.log(`data: ${data}, error: ${error}, status: ${status}`);
       } catch (err) {
         console.log(err);
         setInputError("Invalid Input.");
@@ -196,8 +187,8 @@ export default function AddRating({
           <Button
             color="primary"
             onClick={() => {
-                setRating(true)
-                setAddRating(false)
+              setRating(true);
+              setAddRating(false);
             }}
             variant="contained"
             style={{ backgroundColor: "#7B61FF" }}

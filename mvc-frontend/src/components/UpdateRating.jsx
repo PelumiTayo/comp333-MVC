@@ -37,14 +37,13 @@ export default function UpdateRating({
 
         //converts information into formData so it can be sent to the backend.
 
-        const { data, error, status } = await apiClient.ratingPatch({
+        const { data } = await apiClient.ratingPatch({
           id: updateValues.id,
           username: username,
           title: updateInfo.title,
           artist: updateInfo.artist,
           rating: updateInfo.rating,
         });
-        console.log(data);
         //successfully inputted into the DB
         if (data) {
           setInputError("");
@@ -54,20 +53,10 @@ export default function UpdateRating({
         } else {
           setInputError("Invalid Input.");
         }
-        console.log(`data: ${data}, error: ${error}, status: ${status}`);
       } catch (err) {
         console.log(err);
         setInputError("Invalid Input.");
       }
-
-      //   setupdateInfo((prevState) => ({
-      //     ...prevState,
-      //     artist: "",
-      //     title: "",
-      //     rating: "",
-      //   }));
-
-      //error handling
     } else {
       if (updateInfo.artist.length === 0) {
         setupdateInfo((prevState) => ({
