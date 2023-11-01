@@ -78,6 +78,15 @@ calling `$this->model->retrieve()` will retrieve all ratings the database.
 
 ## Database Structure
 
+user_table
+
+| username (PRIMARY KEY) | password |
+|------------------------|----------|
+
+rating_table
+
+| id (PRIMARY KEY) | username (FOREIGN KEY) | title | artist | rating |
+|------------------|------------------------|-------|--------|--------|
 
 ## Deploying application
 
