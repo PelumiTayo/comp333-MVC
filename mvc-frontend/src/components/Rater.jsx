@@ -3,19 +3,33 @@ import Plus from "@mui/icons-material/PlusOne";
 
 import React from "react";
 import AddRating from "./AddRating.jsx";
+import apiClient from "../services/apiClient.jsx";
 import RatingsView from "./RatingsView.jsx";
+import UpdateRating from "./UpdateRating.jsx";
 
 export default function Rater({ setTotalRatings, totalRatings }) {
   const [username, setUsername] = React.useState("");
   const [addRating, setAddRating] = React.useState(false);
+  const [update, setUpdate] = React.useState(false);
+  const [updateValues, setUpdateValues] = React.useState({
+    id: 0,
+    artist: "",
+    title: "",
+    rating: 0,
+  });
+
   const [rating, setRating] = React.useState(true);
 
   React.useEffect(() => {
     const data = localStorage.getItem("username");
-    const ratings = localStorage.getItem("totalRatings");
-    setTotalRatings(JSON.parse(ratings))
     setUsername(data);
-  }, [totalRatings]);
+    async function fetch() {
+      const { data } = await apiClient.ratingG();
+      setTotalRatings(data);
+    }
+    fetch();
+  }, []);
+
   return (
     <h1>
       <>
@@ -42,18 +56,34 @@ export default function Rater({ setTotalRatings, totalRatings }) {
                 Add a Rating!
               </Button>
             </Box>
-            <RatingsView totalRatings={totalRatings} username={username} />
+            <RatingsView
+              totalRatings={totalRatings}
+              username={username}
+              setUpdate={setUpdate}
+              setUpdateValues={setUpdateValues}
+              setRating={setRating}
+            />
           </Box>
         ) : (
-          addRating && (
-            <AddRating
-              username={username}
-              setRating={setRating}
-              setAddRating={setAddRating}
-              setTotalRatings={setTotalRatings}
-              totalRatings={totalRatings}
-            />
-          )
+          <>
+            {addRating && (
+              <AddRating
+                username={username}
+                setRating={setRating}
+                setAddRating={setAddRating}
+                setTotalRatings={setTotalRatings}
+                totalRatings={totalRatings}
+              />
+            )}
+            {update && (
+              <UpdateRating
+                updateValues={updateValues}
+                username={username}
+                setRating={setRating}
+                setUpdate={setUpdate}
+              />
+            )}
+          </>
         )}
       </>
     </h1>

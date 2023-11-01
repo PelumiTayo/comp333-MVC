@@ -6,19 +6,21 @@ class ApiClient {
     this.remoteHostUrl = "http://localhost";
   }
 
-
   async request({ endpoint, method, data = {} }) {
-    //setting up the url and method 
+    //setting up the url and method
     const url = `${this.remoteHostUrl}/${endpoint}`;
     console.debug("API Call:", endpoint, data, method);
     const params = method === "GET" ? data : {};
-    const headers = {
-      "Content-Type": "multipart/form-data",
-    };
+    const headers =
+      method === "PATCH"
+        ? { "Content-Type": "application/json" }
+        : {
+            "Content-Type": "multipart/form-data",
+          };
 
     try {
       const res = await axios({ url, method, data, params, headers });
-      return { data: res.data, error: res.error, status: res.status};
+      return { data: res.data, error: res.error, status: res.status };
     } catch (error) {
       console.error("APIclient.makeRequest.error", error.response);
       if (error?.response?.status === 404)
@@ -56,6 +58,14 @@ class ApiClient {
     return await this.request({
       endpoint: `ratings`,
       method: `GET`,
+      data: creds,
+    });
+  }
+
+  async ratingPatch(creds) {
+    return await this.request({
+      endpoint: `ratings`,
+      method: `PATCH`,
       data: creds,
     });
   }
