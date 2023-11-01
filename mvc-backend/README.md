@@ -18,7 +18,7 @@ This class is responsible for handling http requests sent through various uris.
 ```PHP
 Route::add($uri, $target)
 ```
-is a static method which compares the `$_SERVER['REQUEST_URI]` with the `$uri` variable and `include_once $target` file. In the `$target` file, is a `case switch` statement which handles different kinds of `$_SERVER['REQUEST_METHOD]`.
+is a static method which compares the `$_SERVER['REQUEST_URI]` with the `$uri` variable and `include_once $target` file. In the `$target` file, is a `case switch` statement which handles different kinds of `$_SERVER['REQUEST_METHOD]`. The routing algorithm was adapted from an open source repository[link](https://github.com/phprouter/main).
   
 ### Model Class
 
