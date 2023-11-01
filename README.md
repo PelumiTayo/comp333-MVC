@@ -15,7 +15,7 @@ For detailed documentation, refer to [Backend Documentation](#🔗-backend-docum
 
 ## [🔗 Frontend Documentation](mvc-frontend/README.md)
 
-SPA frontend was written in React. 
+SPA written in React. 
 
 For detailed documentation, refer to [Frontend Documentation](#🔗-frontend-documentation)
 
