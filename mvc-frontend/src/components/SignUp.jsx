@@ -13,6 +13,7 @@ import {
 import logo from "../assets/logo.png";
 import apiClient from "../services/apiClient";
 import BandPractice from "../assets/The Band Concert.png";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp({setIsLogged}) {
     // sets up the user object
@@ -25,11 +26,11 @@ export default function SignUp({setIsLogged}) {
     confirmPasswordError: "",
   });
 
-  
+  const navigateTo = useNavigate()
   const [registerError, setRegisterError] = React.useState("");
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("here");
+    
     if (
       userInfo.username &&
       userInfo.password.length >= 8 &&
@@ -50,23 +51,20 @@ export default function SignUp({setIsLogged}) {
         formData.append("username", userInfo.username);
         formData.append("password", userInfo.password);
 
-        const { data, error, message } = await apiClient.register(formData);
-        if (error) {
-          setRegisterError("Something went wrong with registration, please try again!");
-          return;
-        }
-
+        const { data, error, status } = await apiClient.register(formData);
+    
         //successfully inputted into the DB
-        if (data == "") {
+        if (data === 1) {
           setRegisterError("");
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
           setIsLogged(true)
+          navigateTo("/Rate")
         //unsuccessful
         } else {
             setRegisterError("Something went wrong with registration, please try again!");
         }
-        console.log(message, error, data);
+        console.log(`data: ${data}, error: ${error}, status: ${status}`);
       } catch (err) {
         console.log(err);
         setRegisterError("Something went wrong with registration, please try again!");

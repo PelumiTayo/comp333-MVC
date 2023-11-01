@@ -18,7 +18,7 @@ class ApiClient {
 
     try {
       const res = await axios({ url, method, data, params, headers });
-      return { data: res.data, error: null };
+      return { data: res.data, error: res.error, status: res.status};
     } catch (error) {
       console.error("APIclient.makeRequest.error", error.response);
       if (error?.response?.status === 404)
@@ -35,6 +35,15 @@ class ApiClient {
       data: creds,
     });
   }
-}
 
-export default new ApiClient("http://localhost");
+  async login(creds) {
+    return await this.request({
+      endpoint: `login`,
+      method: `POST`,
+      data: creds,
+    });
+  }
+}
+const apiClientInstance = new ApiClient("http://localhost");
+
+export default apiClientInstance;

@@ -11,8 +11,8 @@ switch($_SERVER['REQUEST_METHOD'])
     case 'POST':
         # handle post request
         $request = array(
-            'username' => $_POST('username'),
-            'password' => $_POST('password')
+            'username' => $_POST['username'],
+            'password' => $_POST['password']
 
         );
         $controller->create($request);

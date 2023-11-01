@@ -13,6 +13,7 @@ import {
 import apiClient from "../services/apiClient";
 import logo from "../assets/logo.png";
 import BandPractice from "../assets/The Band Concert.png";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp({setIsLogged}) {
   const [userInfo, setUserInfo] = React.useState({
@@ -21,11 +22,14 @@ export default function SignUp({setIsLogged}) {
     usernameError: "",
     passwordError: "",
   });
-  console.log(userInfo);
+
+  //navigates to another page in the applicaton 
+  const navigateTo = useNavigate()
+
   const [loginError, setLoginError] = React.useState("");
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("here");
+    
     if (userInfo.username && userInfo.password.length >= 8) {
       try {
         setUserInfo((prevState) => ({
@@ -39,16 +43,13 @@ export default function SignUp({setIsLogged}) {
         formData.append("password", userInfo.password);
 
         const { data, error, message } = await apiClient.login(formData);
-        if (error) {
-            setLoginError("Incorrect Username/Password.");
-            return;
-        }
 
-        if (data) {
+        if (data === 1) {
           setLoginError("");
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
           setIsLogged(true)
+          navigateTo("/Rate")
         } else {
             setLoginError("Incorrect Username/Password.");
         }
@@ -156,7 +157,7 @@ export default function SignUp({setIsLogged}) {
             fullWidth
             required
           />
-          <Typography>{loginError}</Typography>
+          <Typography sx={{color:"red"}}>{loginError}</Typography>
           <Button
             type="submit"
             color="primary"
