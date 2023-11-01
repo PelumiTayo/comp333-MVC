@@ -33,7 +33,7 @@ export default function DeleteRating({
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const { data, error, status } = await apiClient.ratingD({
+    const { data } = await apiClient.ratingD({
       id: dltID,
     });
     //successfully deleted from the DB

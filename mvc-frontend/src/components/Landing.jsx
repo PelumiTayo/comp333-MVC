@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Footer from "./Footer.jsx";
-
+import { Link } from "react-router-dom";
 //importing image from assets folder.
 import BandPractice from "../assets/The Band Band Practice.jpg";
 export default function Landing() {
@@ -34,15 +34,16 @@ export default function Landing() {
             SonicScore is a comprehensive music rater application designed to
             allow users to enter, rate, and review their favorite songs.
           </Typography>
-          <Button
-            component="a"
-            sx={{ display: "block", backgroundColor: "#FFAC4B" }}
-            variant="contained"
-            align="center"
-            href="/signUp"
-          >
-            Get Started Today
-          </Button>
+          <Box align="center" width={"100%"}>
+            <Link to="/signUp" style={{ textDecoration: "none" }}>
+              <Button
+                sx={{ display: "block", backgroundColor: "#FFAC4B" }}
+                variant="contained"
+              >
+                Get Started Today
+              </Button>
+            </Link>
+          </Box>
         </Box>
         <Box
           component="img"

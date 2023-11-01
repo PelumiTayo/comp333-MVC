@@ -8,12 +8,11 @@ import {
   Button,
   Typography,
   Box,
-  Link,
 } from "@mui/material";
 import logo from "../assets/logo.png";
 import apiClient from "../services/apiClient";
 import BandPractice from "../assets/The Band Concert.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
   // sets up the user object
@@ -51,7 +50,7 @@ export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
         formData.append("username", userInfo.username);
         formData.append("password", userInfo.password);
 
-        const { data, error, status } = await apiClient.register(formData);
+        const { data } = await apiClient.register(formData);
 
         //successfully inputted into the DB
         if (data === 1) {
@@ -60,7 +59,6 @@ export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
           setTotalRatings([]);
-          localStorage.setItem("totalRatings", totalRatings);
           navigateTo("/Rate");
           //unsuccessful
         } else {
@@ -68,7 +66,6 @@ export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
             "Something went wrong with registration, please try again!"
           );
         }
-        console.log(`data: ${data}, error: ${error}, status: ${status}`);
       } catch (err) {
         console.log(err);
         setRegisterError(
@@ -214,7 +211,7 @@ export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
             Already have an account?{" "}
             <Link
               style={{ textDecoration: "none", color: "#FFAC4B" }}
-              href="\signIn"
+              to="..\signIn"
             >
               Sign In
             </Link>
