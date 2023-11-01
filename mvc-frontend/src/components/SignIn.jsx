@@ -49,7 +49,7 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
           localStorage.setItem("username", userInfo.username);
           localStorage.setItem("loggedIn", true);
           setIsLogged(true);
-          const { data } = await apiClient.ratingG(formData);
+          const { data } = await apiClient.ratingG();
           console.log(data)
           if (data) {
             setTotalRatings(data);
