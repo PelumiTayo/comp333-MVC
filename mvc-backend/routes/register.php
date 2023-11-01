@@ -10,8 +10,8 @@ switch($_SERVER['REQUEST_METHOD'])
 
     case 'POST': # handle post request
         $request = array(
-            'username' => $_POST['username'],
-            'password' => $_POST['password']
+            'username' => htmlspecialchars($_POST['username']),
+            'password' => htmlspecialchars($_POST['password'])
         );
         $userController->store($request);
 }
