@@ -14,10 +14,13 @@ export default function RatingsView({
   setRating,
   setUpdateValues,
   setDltID,
+  setViewRate,
+
   username,
   setUpdate,
   setDlt,
-  setDeleteRating
+  setView,
+  setDeleteRating,
 }) {
   return (
     <Box align={"center"} sx={{ flexGrow: 1 }} m={3}>
@@ -41,38 +44,77 @@ export default function RatingsView({
               <Box sx={{ width: "fit-content" }}>
                 {username === subArray[1] ? (
                   <CardActions>
-                    <Button size="small">View</Button>
                     <Button
                       onClick={(e) => {
                         e.preventDefault();
-                        console.log("here");
+                        setRating(false);
+                        setView(true);
+                        setViewRate(true);
+                        setUpdateValues((prevState) => ({
+                          ...prevState,
+                          id: subArray[0],
+                          username: subArray[1],
+                          artist: subArray[3],
+                          title: subArray[2],
+                          rating: subArray[4],
+                        }));
+                      }}
+                      size="small"
+                    >
+                      View
+                    </Button>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
                         setRating(false);
                         setUpdate(true);
                         setUpdateValues((prevState) => ({
-                            ...prevState, 
-                            id: subArray[0],
-                            username: username,
-                            artist: subArray[3],
-                            title: subArray[2],
-                            rating: subArray[4]
-
-                        }))
+                          ...prevState,
+                          id: subArray[0],
+                          username: username,
+                          artist: subArray[3],
+                          title: subArray[2],
+                          rating: subArray[4],
+                        }));
                       }}
                       size="small"
                     >
                       Update
                     </Button>
-                    <Button onClick={(e) => {
-                        e.preventDefault()
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
                         setRating(false);
-                        setDlt(true)
-                        setDeleteRating(true)
-                        setDltID(subArray[0])
-                    }} size="small">Delete</Button>
+                        setDlt(true);
+                        setDeleteRating(true);
+                        setDltID(subArray[0]);
+                      }}
+                      size="small"
+                    >
+                      Delete
+                    </Button>
                   </CardActions>
                 ) : (
                   <CardActions>
-                    <Button size="small">View</Button>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setRating(false);
+                        setView(true);
+                        setViewRate(true);
+                        setUpdateValues((prevState) => ({
+                          ...prevState,
+                          id: subArray[0],
+                          username: subArray[1],
+                          artist: subArray[3],
+                          title: subArray[2],
+                          rating: subArray[4],
+                        }));
+                      }}
+                      size="small"
+                    >
+                      View
+                    </Button>
                   </CardActions>
                 )}
               </Box>

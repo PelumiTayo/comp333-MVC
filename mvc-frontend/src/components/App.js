@@ -23,36 +23,46 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar isLogged={isLogged} setIsLogged={setIsLogged} setTotalRatings={setTotalRatings}/>
+        <Navbar
+          isLogged={isLogged}
+          setIsLogged={setIsLogged}
+          setTotalRatings={setTotalRatings}
+        />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route
             path="/signUp"
             element={
-              <SignUp
-                setIsLogged={setIsLogged}
-                totalRatings={totalRatings}
-                setTotalRatings={setTotalRatings}
-              />
+              !isLogged && (
+                <SignUp
+                  setIsLogged={setIsLogged}
+                  totalRatings={totalRatings}
+                  setTotalRatings={setTotalRatings}
+                />
+              )
             }
           />
           <Route
             path="/Rate"
             element={
-              <Rater
-                setTotalRatings={setTotalRatings}
-                totalRatings={totalRatings}
-              />
+              isLogged && (
+                <Rater
+                  setTotalRatings={setTotalRatings}
+                  totalRatings={totalRatings}
+                />
+              )
             }
           />
           <Route
             path="/signIn"
             element={
-              <SignIn
-                setIsLogged={setIsLogged}
-                totalRatings={totalRatings}
-                setTotalRatings={setTotalRatings}
-              />
+              !isLogged && (
+                <SignIn
+                  setIsLogged={setIsLogged}
+                  totalRatings={totalRatings}
+                  setTotalRatings={setTotalRatings}
+                />
+              )
             }
           />
         </Routes>

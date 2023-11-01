@@ -72,7 +72,12 @@ export default function GuestFooter() {
   return (
     <Container
       id="About"
-      sx={{ marginTop: "calc(10% + 60px)", bottom: 0, width: "100%", padding: "100px"}}
+      sx={{
+        marginTop: "calc(10% + 60px)",
+        bottom: 0,
+        width: "100%",
+        padding: "100px",
+      }}
       maxWidth="lg"
     >
       <Box
@@ -86,9 +91,7 @@ export default function GuestFooter() {
           <Typography variant="h1">
             S<span style={{ color: "#FF5A5A" }}>S</span>
           </Typography>
-          <Typography >
-          Copyright ©2022. SonicScore Limited
-          </Typography>
+          <Typography>Copyright ©2022. SonicScore Limited</Typography>
         </Box>
         <Box
           sx={{

@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Footer from "./Footer.jsx";
 
-//importing image from assets folder. 
+//importing image from assets folder.
 import BandPractice from "../assets/The Band Band Practice.jpg";
 export default function Landing() {
   return (

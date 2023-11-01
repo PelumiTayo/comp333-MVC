@@ -7,13 +7,16 @@ import apiClient from "../services/apiClient.jsx";
 import RatingsView from "./RatingsView.jsx";
 import UpdateRating from "./UpdateRating.jsx";
 import DeleteRating from "./DeleteRating.jsx";
+import ViewRating from "./ViewRating.jsx";
 
 export default function Rater({ setTotalRatings, totalRatings }) {
   const [username, setUsername] = React.useState("");
   const [addRating, setAddRating] = React.useState(false);
   const [update, setUpdate] = React.useState(false);
   const [dlt, setDlt] = React.useState(false);
-  const [dltID, setDltID] = React.useState(0)
+  const [dltID, setDltID] = React.useState(0);
+  const [view, setView] = React.useState(false);
+  const [viewRate, setViewRate] = React.useState(false);
   const [deleteRating, setDeleteRating] = React.useState(false);
   const [updateValues, setUpdateValues] = React.useState({
     id: 0,
@@ -64,11 +67,13 @@ export default function Rater({ setTotalRatings, totalRatings }) {
               totalRatings={totalRatings}
               username={username}
               setUpdate={setUpdate}
+              setViewRate={setViewRate}
               setUpdateValues={setUpdateValues}
               setRating={setRating}
               setDeleteRating={setDeleteRating}
               setDlt={setDlt}
               setDltID={setDltID}
+              setView={setView}
             />
           </Box>
         ) : (
@@ -98,6 +103,14 @@ export default function Rater({ setTotalRatings, totalRatings }) {
                 setDeleteRating={setDeleteRating}
                 deleteRating={deleteRating}
                 dltID={dltID}
+              />
+            )}
+            {view && (
+              <ViewRating
+                setRating={setRating}
+                viewRate={viewRate}
+                setViewRate={setViewRate}
+                updateValues={updateValues}
               />
             )}
           </>

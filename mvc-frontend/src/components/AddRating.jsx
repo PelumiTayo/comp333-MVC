@@ -6,8 +6,6 @@ export default function AddRating({
   username,
   setRating,
   setAddRating,
-  totalRatings,
-  setTotalRatings,
 }) {
   const [ratingInfo, setRatingInfo] = React.useState({
     artist: "",
@@ -194,6 +192,18 @@ export default function AddRating({
             fullWidth
           >
             Rate
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+                setRating(true)
+                setAddRating(false)
+            }}
+            variant="contained"
+            style={{ backgroundColor: "#7B61FF" }}
+            fullWidth
+          >
+            Cancel
           </Button>
         </Paper>
       </Grid>
