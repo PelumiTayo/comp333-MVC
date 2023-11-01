@@ -43,6 +43,22 @@ class ApiClient {
       data: creds,
     });
   }
+
+  async ratingP(creds) {
+    return await this.request({
+      endpoint: `ratings`,
+      method: `POST`,
+      data: creds,
+    });
+  }
+
+  async ratingG(creds) {
+    return await this.request({
+      endpoint: `ratings`,
+      method: `GET`,
+      data: creds,
+    });
+  }
 }
 const apiClientInstance = new ApiClient("http://localhost");
 

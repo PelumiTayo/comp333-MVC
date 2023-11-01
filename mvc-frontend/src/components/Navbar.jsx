@@ -56,6 +56,7 @@ export default function Navbar({ isLogged, setIsLogged }) {
       localStorage.setItem("loggedIn", false);
       localStorage.setItem("username", "");
       setIsLogged(false);
+      navigateTo("/")
     } else if (setting === "Rated Songs") {
       navigateTo("/Rate");
     }

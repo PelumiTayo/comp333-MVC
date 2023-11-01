@@ -18,6 +18,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function App() {
   const [isLogged, setIsLogged] = React.useState(false);
+  const [totalRatings, setTotalRatings] = React.useState(null);
+
+  console.log(totalRatings);
 
   return (
     <>
@@ -27,15 +30,30 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route
             path="/signUp"
-            element={<SignUp setIsLogged={setIsLogged} />}
+            element={
+              <SignUp
+                setIsLogged={setIsLogged}
+                setTotalRatings={setTotalRatings}
+              />
+            }
           />
           <Route
             path="/Rate"
-            element={<Rater/>}
+            element={
+              <Rater
+                setTotalRatings={setTotalRatings}
+                totalRatings={totalRatings}
+              />
+            }
           />
           <Route
             path="/signIn"
-            element={<SignIn setIsLogged={setIsLogged} />}
+            element={
+              <SignIn
+                setIsLogged={setIsLogged}
+                setTotalRatings={setTotalRatings}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>
