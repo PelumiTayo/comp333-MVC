@@ -29,20 +29,20 @@ export default function RatingsView({ totalRatings, username }) {
                 <Typography>Song: {subArray[2]}</Typography>
                 <Typography>Rating: {subArray[4]}</Typography>
               </CardContent>
-              <Box sx={{ width:"fit-content"}}>
-              {username === subArray[1] ? (
-                <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Update</Button>
-                  <Button size="small">Delete</Button>
-                  <Button size="small">Comment</Button>
-                </CardActions>
-              ) : (
-                <CardActions>
-                  <Button size="small">View</Button>
-                  <Button size="small">Comment</Button>
-                </CardActions>
-              )}
+              <Box sx={{ width: "fit-content" }}>
+                {username === subArray[1] ? (
+                  <CardActions>
+                    <Button size="small">View</Button>
+                    <Button size="small">Update</Button>
+                    <Button size="small">Delete</Button>
+                    <Button size="small">Comment</Button>
+                  </CardActions>
+                ) : (
+                  <CardActions>
+                    <Button size="small">View</Button>
+                    <Button size="small">Comment</Button>
+                  </CardActions>
+                )}
               </Box>
             </Card>
           </Grid>
