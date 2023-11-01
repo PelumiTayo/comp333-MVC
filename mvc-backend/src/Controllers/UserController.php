@@ -20,7 +20,7 @@ class UserController extends BaseController
         try {
             $rows = $userModel->retrieve($username_request);
             $user_result = $rows[0];
-            if (count($user_result) > 0) {
+            if (count($rows) > 0) {
                 $user_password = $user_result[1];
                 if (password_verify($password_request, $user_password)) {
                     echo true;
@@ -52,14 +52,21 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
         try {
-            $userModel->create($request);
+            $rows = $userModel->retrieve(array('username' => $request['username']));
+            if (count($rows) > 0) {
+                echo "username is taken";
+                return false;
+            }
+            else
+            {
+                $userModel->create($request);
+                echo true;
+                return true;
+            }
         } catch (\Exception $e) {
             http_response_code(500);
             echo $e;
             return false;
-        } finally {
-            echo true;
-            return true;
         }
     }
 }
