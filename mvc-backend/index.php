@@ -1,7 +1,7 @@
 <?php
 
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Headers:*');
+header('Access-Control-Allow-Origin:https://soundscore-e4f0b.web.app');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Methods:GET,PATCH,POST,OPTIONS,DELETE');
 header('Access-Control-Allow-Credentials:true');
 
