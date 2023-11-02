@@ -23,6 +23,13 @@ class RatingController extends BaseController
         else {
             $result = $this->model->retrieve($key);
         }
+        for ($__i__ = 0; $__i__ < count($result); $__i__++) {
+            foreach ($result[$__i__] as $key => $value) {
+                if (gettype($value) == 'string') {
+                    $result[$__i__][$key] = htmlspecialchars_decode($value);
+                }
+            }
+        }
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($result);
         return null;
