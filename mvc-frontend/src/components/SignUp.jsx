@@ -51,7 +51,6 @@ export default function SignUp({ setIsLogged, setTotalRatings, totalRatings }) {
         formData.append("password", userInfo.password);
 
         const { data } = await apiClient.register(formData);
-
         //successfully inputted into the DB
         if (data === 1) {
           setRegisterError("");

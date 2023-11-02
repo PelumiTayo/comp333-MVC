@@ -3,7 +3,7 @@ import axios from "axios";
 
 class ApiClient {
   constructor(remoteHostUrl) {
-    this.remoteHostUrl = "http://localhost";
+    this.remoteHostUrl = "https://sonicscore.onrender.com";
   }
 
   async request({ endpoint, method, data = {} }) {

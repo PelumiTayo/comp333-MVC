@@ -41,8 +41,7 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
         formData.append("username", userInfo.username);
         formData.append("password", userInfo.password);
 
-        const { data, error, message } = await apiClient.login(formData);
-
+        const { data } = await apiClient.login(formData);
         if (data === 1) {
           setLoginError("");
           //sets username and loggedIn value in localStorage to uphold state. 
@@ -57,7 +56,6 @@ export default function SignUp({ setIsLogged, totalRatings, setTotalRatings }) {
         } else {
           setLoginError("Incorrect Username/Password.");
         }
-        console.log(message, error, data);
       } catch (err) {
         console.log(err);
         setLoginError("Incorrect Username/Password.");
