@@ -32,11 +32,11 @@
 * User authentication
   - Log in to view, update, delete, or add to your song ratings!
 * Mobile Friendly
-  - Take SoundScore on the go!
+  - Take SonicScore on the go!
 
 ## How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this application locally, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
@@ -48,14 +48,17 @@ $ cd comp333-MVC
 # For the frontend, go to directory mvc-frontend and install dependencies
 $ npm install
 
+# Go to src/components/services/apiClient.jsx file
+$ change this.remoteHostUrl to "http://localhost"
+
 # Run the app
 $ npm start
 
-# For the frontend, go to directory mvc-backend
+# For the backend, go to directory mvc-backend
 - Make sure you have xampp installed, instructions [here](https://www.apachefriends.org/download.html).
 - In xampp, run your mySQL database and Apache server.
-- Move your backend folders into htdocs, which is provided by xampp.
-- Congratulations! Your backend is up and running! :)
+- Move your backend folders into the htdocs folder, which is provided by xampp.
+- Congratulations! Your backend is up and running on localhost! :)
 
 ```
 
