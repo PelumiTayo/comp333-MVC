@@ -84,6 +84,7 @@ This software uses the following open source packages:
 - [Node.js](https://nodejs.org/)
 - Front-End built with [React](https://react.dev/) and [Material UI](https://mui.com/)
 - Back-End build with [PHP](https://www.php.net/)
+- Deployment done using [Firebase](https://firebase.google.com/) for the frontend and [AWS](https://aws.amazon.com/) and [Docker](https://www.docker.com/) for the backend!
 
 
 ## License
