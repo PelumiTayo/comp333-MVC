@@ -25,12 +25,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: |
-          cd mvc-frontend
-          npm ci
-      - run: |
-          cd mvc-frontend
-          npm run build --if-present
-      - run: |
-          cd mvc-frontend
-          npm test
+      - run: npm ci --prefix mvc-frontend
+      - run: npm run build --if-present --prefix mvc-frontend
+      - run: npm test --prefix mvc-frontend
